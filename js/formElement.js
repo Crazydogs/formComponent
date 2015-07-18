@@ -7,6 +7,7 @@
  */
 define(function (require, exports, module) {
     var validate = require('js/formValidate.js');
+    var checkDependent = require('js/formDependent.js');
     var componentItem = function (data, submitKey) {
         if (data) {
             var self = this;
@@ -15,23 +16,26 @@ define(function (require, exports, module) {
             self.submitData = data.submitData;
             // 元素配置数据
             self.componentData = data.items[submitKey];
+            // 基本 css 类
+            self.baseClass = (self.componentData.className || 'form-component');
 
             self.validateState = true;          // 合法校验状态
             self.dependentState = true;         // 依赖校验状态
             self.isStateChange = false;         // 状态是否改变标志
         }
-    }
+    };
 
     componentItem.prototype.validateData = function () {
         var self = this;
         var newValidateState = true;
 
         if (!self.componentData.validate) {
-            return true;
+            newValidateState = true;
         }
-        var result = validate(self.componentData.validate, self.submitData[submitData]);
+        var result = validate(self.componentData.validate, self.submitData[submitKey]);
         newValidateState = result.pass;
 
+        // 状态变更检查
         if (newValidateState !== self.validateState) {
             self.isStateChange = true;
         }
@@ -40,6 +44,20 @@ define(function (require, exports, module) {
     };
     componentItem.prototype.checkDependent = function () {
         var self = this;
+        var newDependentState = true;
+
+        if (!self.componentData.dependent) {
+            newDependentState = true;
+        }
+        var result = checkDependent(self.componentData.dependent, self.submitData[submitKey]);
+        newDependentState = result.pass;
+
+        // 状态变更检查
+        if (newValidateState !== self.validateState) {
+            self.isStateChange = true;
+        }
+
+        self.dependentState = newDependentState;
     };
     return componentItem;
 });

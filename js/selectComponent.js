@@ -7,8 +7,10 @@ define(function (require, exports, module) {
         componentItem.call(self, data, submitKey);
 
         self.create = function () {
+            // 构造 dom
             var $component = $('<div>');
             var $label = $('<label>').text(self.componentData.label);
+
             var $select = $('<select>');
             var select = self.componentData.options;
             for (var i = 0; i < select.length; i++) {
@@ -21,9 +23,10 @@ define(function (require, exports, module) {
                 var $target = $(e.target);
                 onChange({
                     submitKey: submitKey,
-                    value: $target.attr)'value'
+                    value: $target.attr('value')
                 })
             });
+
             $component.append($label).append($select);
 
             return $component;

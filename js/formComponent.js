@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
-    var ComponentInput = require('js/inputComponent.js');
-    var ComponentRadio = require('js/radioComponent.js');
-    var ComponentSelect = require('js/selectComponent.js');
+    var ComponentInput = require('./inputComponent.js');
+    var ComponentRadio = require('./radioComponent.js');
+    var ComponentSelect = require('./selectComponent.js');
     var Form = function (opts) {
         var self = this;
 

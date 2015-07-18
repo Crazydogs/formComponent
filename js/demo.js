@@ -42,6 +42,14 @@ require(['js/formComponent.js'], function (Form) {
                             value: 'Android',
                             label: '安卓'
                         }
+                    ],
+                    dependent: [
+                        {
+                            rules: {
+                                goods_type: 2
+                            },
+                            fail: 'hide'
+                        }
                     ]
                 },
                 goods_system_version: {

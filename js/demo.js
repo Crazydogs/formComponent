@@ -14,7 +14,6 @@ require(['js/formComponent.js'], function (Form) {
                 goods_name: {
                     label: '商品名称',
                     type: 'input',
-                    className: 'specail-class',
                     validate: {
                         need: true,
                         maxLength: 10
@@ -48,7 +47,7 @@ require(['js/formComponent.js'], function (Form) {
                             rules: {
                                 goods_type: 2
                             },
-                            fail: 'hide'
+                            fail: 'hide'    // 允许为 hide 或者 disable
                         }
                     ]
                 },

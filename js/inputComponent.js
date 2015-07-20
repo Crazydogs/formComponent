@@ -20,7 +20,35 @@ define(function (require, exports, module) {
 
             $component.append($label).append($input);
             return $component;
-        }
+        };
+
+        // 响应表单数据变更
+        self.dataChanged = function () {
+            self.checkValidate();
+            self.checkDependent();
+            if (self.isStateChange) {
+                return self.creat();
+            } else {
+                return false;
+            }
+        };
+
+        self.setStyle = function ($component) {
+            $component.addClass('form-component-item');
+            if (!self.validateState) {
+                $component.addClass('form-component-item-warning');
+            }
+            if (!self.dependentState) {
+                switch (self.componentData.dependent.fail) {
+                    case 'hide':
+                        $component.addClass('form-component-item-hide');
+                    break;
+                    case 'disable':
+                        $component.addClass('form-component-item-disable');
+                    break;
+                }
+            }
+        };
     }
 
     componentInput.prototype = new componentItem();

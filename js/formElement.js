@@ -16,8 +16,6 @@ define(function (require, exports, module) {
             self.submitData = data.submitData;
             // 元素配置数据
             self.componentData = data.items[submitKey];
-            // 基本 css 类
-            self.baseClass = (self.componentData.className || 'form-component');
 
             self.validateState = true;          // 合法校验状态
             self.dependentState = true;         // 依赖校验状态
@@ -25,7 +23,8 @@ define(function (require, exports, module) {
         }
     };
 
-    componentItem.prototype.validateData = function () {
+    // 数据合法校验
+    componentItem.prototype.checkValidate = function () {
         var self = this;
         var newValidateState = true;
 
@@ -42,6 +41,7 @@ define(function (require, exports, module) {
 
         self.validateState = newValidateState;
     };
+    // 表单元素依赖校验
     componentItem.prototype.checkDependent = function () {
         var self = this;
         var newDependentState = true;

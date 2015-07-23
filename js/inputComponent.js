@@ -6,10 +6,18 @@ define(function (require, exports, module) {
         // 继承自表单元素父类
         componentItem.call(self, data, submitKey);
 
+        self.checkValidate();
+        self.checkDependent();
+
+        // 根据表单数据和组件状态渲染 dom 结构
         self.create = function () {
             var $component = $('<div>');
-            var $label = $('<label>').text(self.componentData.label);
-            var $input = $('<input>').val(self.submitData[submitKey]);
+            var $label = $('<label>')
+                .text(self.componentData.label)
+                .addClass('form-component-item-label');
+            var $input = $('<input>')
+                .val(self.submitData[submitKey])
+                .addClass('form-component-item-controls');
             $input.change(function (e) {
                 var $target = $(e.target);
                 onChange({
@@ -19,18 +27,8 @@ define(function (require, exports, module) {
             });
 
             $component.append($label).append($input);
+            self.setStyle($component);
             return $component;
-        };
-
-        // 响应表单数据变更
-        self.dataChanged = function () {
-            self.checkValidate();
-            self.checkDependent();
-            if (self.isStateChange) {
-                return self.creat();
-            } else {
-                return false;
-            }
         };
 
         self.setStyle = function ($component) {

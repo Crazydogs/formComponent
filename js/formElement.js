@@ -3,7 +3,7 @@
  *  @author liuyueming
  *
  *  维持所有组件的通用方法
- *  包括合法校验，依赖校验，状态 diff
+ *  包括合法校验，依赖校验，状态 diff，表单数据变化的响应
  */
 define(function (require, exports, module) {
     var validate = require('js/formValidate.js');
@@ -21,6 +21,10 @@ define(function (require, exports, module) {
             self.dependentState = true;         // 依赖校验状态
             self.isStateChange = false;         // 状态是否改变标志
         }
+
+        if (submitKey) {
+            self.submitKey = submitKey;
+        }
     };
 
     // 数据合法校验
@@ -30,9 +34,10 @@ define(function (require, exports, module) {
 
         if (!self.componentData.validate) {
             newValidateState = true;
+        } else {
+            var result = validate(self.componentData.validate, self.submitData[self.submitKey]);
+            newValidateState = result.pass;
         }
-        var result = validate(self.componentData.validate, self.submitData[submitKey]);
-        newValidateState = result.pass;
 
         // 状态变更检查
         if (newValidateState !== self.validateState) {
@@ -48,16 +53,29 @@ define(function (require, exports, module) {
 
         if (!self.componentData.dependent) {
             newDependentState = true;
+        } else {
+            var result = checkDependent(self.componentData.dependent, self.submitData[self.submitKey]);
+            newDependentState = result.pass;
         }
-        var result = checkDependent(self.componentData.dependent, self.submitData[submitKey]);
-        newDependentState = result.pass;
 
         // 状态变更检查
-        if (newValidateState !== self.validateState) {
+        if (newDependentState !== self.dependentState) {
             self.isStateChange = true;
         }
 
         self.dependentState = newDependentState;
+    };
+    // 响应表单的数据变化
+    componentItem.prototype.dataChanged = function () {
+        var self = this;
+        self.checkValidate();
+        self.checkDependent();
+
+        if (self.isStateChange) {
+            return self.create();
+        } else {
+            return false;
+        }
     };
     return componentItem;
 });

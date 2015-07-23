@@ -16,7 +16,7 @@ require(['js/formComponent.js'], function (Form) {
                     type: 'input',
                     validate: {
                         need: true,
-                        maxLength: 10
+                        maxLength: 3
                     }
                 },
                 goods_type: {
@@ -62,7 +62,8 @@ require(['js/formComponent.js'], function (Form) {
             submitData: {
                 // 表单数据默认值
                 goods_name: '我是商户名称默认值',
-                goods_type: 1
+                goods_type: 1,
+                goods_system_version: '1.0.1'
             }
         }
     };

@@ -8,10 +8,12 @@ define(function (require, exports, module) {
 
         self.create = function () {
             // 构造 dom
-            var $component = $('<div>');
-            var $label = $('<label>').text(self.componentData.label);
+            var $component = $('<div>').addClass('form-component-item');
+            var $label = $('<label>')
+                .text(self.componentData.label)
+                .addClass('form-component-item-label');
 
-            var $select = $('<select>');
+            var $select = $('<select>').addClass('form-component-item-controls');
             var select = self.componentData.options;
             for (var i = 0; i < select.length; i++) {
                 var $option = $('<option>').text(select[i].label);

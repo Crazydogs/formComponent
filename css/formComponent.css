@@ -1,0 +1,17 @@
+.form-component-item {
+    margin: 10px 0;
+}
+
+.form-component-item-label {
+    display: inline-block;
+    width: 100px;
+    vertical-align: top;
+}
+.form-component-item-controls {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.form-component-item-warning {
+    color: red;
+}

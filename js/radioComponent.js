@@ -1,3 +1,6 @@
+/*
+ *  @file 单选元素
+ */
 define(function (require, exports, module) {
     var componentItem = require('js/formElement.js');
 
@@ -9,10 +12,12 @@ define(function (require, exports, module) {
         self.create = function () {
             // dom 构造
             var $component = $('<div>');
-            var $label = $('<label>').text(self.componentData.label);
+            var $label = $('<label>')
+                .text(self.componentData.label)
+                .addClass('form-component-item-label');
             $component.append($label);
             var radios = self.componentData.options;
-            var $radios = $('<div>');
+            var $radios = $('<div>').addClass('form-component-item-controls');
             $component.append($radios);
             for (var i = 0; i < radios.length; i++) {
                 var $option = $('<div>');
@@ -38,6 +43,7 @@ define(function (require, exports, module) {
                 });
             });
 
+            $component.addClass('form-component-item');
             return $component;
         };
     };

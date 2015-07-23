@@ -15,12 +15,19 @@ define(function (require, exports, module) {
 
         // 广播数据变化
         function dataChanged() {
+            for (var i = 0; i < self.keyList.length; i++) {
+                var key = self.keyList[i];
+                var item = self.itemsData[key];
+                var newDom = item.factory.dataChanged && item.factory.dataChanged();
+                if (newDom) {
+                    item.dom.replaceWith(newDom);
+                    item.dom = newDom;
+                }
+            }
         }
         // 响应组件的数据修改请求
         function handleChange(data) {
-            var itemData = self.itemsData[data.submitKey];
-            itemData.value = data.value;
-            console.log(itemData.value);
+            self.submitData[data.submitKey] = data.value;
             dataChanged();
         }
 
@@ -38,14 +45,15 @@ define(function (require, exports, module) {
                     itemData.factory = new ComponentSelect(self.formData.items, item, handleChange);
                 break;
             }
+            itemData.dom = itemData.factory.create();
         }
 
         self.render = function () {
             for (var i = 0; i < self.keyList.length; i++) {
                 var key = self.keyList[i];
                 var itemData = self.itemsData[key];
-                if (itemData.factory) {
-                    self.$form.append(itemData.factory.create());
+                if (itemData.dom) {
+                    self.$form.append(itemData.dom);
                 }
             }
             self.$container.html(self.$form);

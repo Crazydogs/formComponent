@@ -5,6 +5,7 @@ require(['js/formComponent.js'], function (Form) {
             // 表单数据键值，用数组维持一个有序索引
             submitKey: [
                 'goods_name',
+                'goods_short_name',
                 'goods_type',
                 'goods_system',
                 'goods_system_version'
@@ -16,7 +17,20 @@ require(['js/formComponent.js'], function (Form) {
                     type: 'input',
                     validate: {
                         need: true,
-                        maxLength: 3
+                        maxLength: 15
+                    }
+                },
+                goods_short_name: {
+                    label: '商品简称',
+                    type: 'input',
+                    validate: {
+                        maxLength: 8
+                    },
+                    dependent: {
+                        rules: {
+                            goods_name: 'xxx'
+                        },
+                        fail: 'disable'
                     }
                 },
                 goods_type: {

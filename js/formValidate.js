@@ -17,15 +17,17 @@ define(function (require, exports, module) {
                 result.push('need');
             }
         }
+
+        var length = value ? value.toString().length : 0;
         // 最长长度
         if (validateRules.maxLength) {
-            if (value.toString().length > validateRules.maxLength) {
+            if (length > validateRules.maxLength) {
                 result.push('maxLength');
             }
         }
         // 最小长度
         if (validateRules.minLength) {
-            if (value.toString().length < validateRules.minLength) {
+            if (length < validateRules.minLength) {
                 result.push('minLength');
             }
         }

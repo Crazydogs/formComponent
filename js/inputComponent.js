@@ -28,6 +28,7 @@ define(function (require, exports, module) {
 
             $component.append($label).append($input);
             self.setStyle($component);
+            self.isStateChange = false;
             return $component;
         };
 
@@ -43,6 +44,7 @@ define(function (require, exports, module) {
                     break;
                     case 'disable':
                         $component.addClass('form-component-item-disable');
+                        $component.find('input').attr('disabled', 'disabled');
                     break;
                 }
             }

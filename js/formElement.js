@@ -54,7 +54,7 @@ define(function (require, exports, module) {
         if (!self.componentData.dependent) {
             newDependentState = true;
         } else {
-            var result = checkDependent(self.componentData.dependent, self.submitData[self.submitKey]);
+            var result = checkDependent(self.componentData.dependent, self.submitData);
             newDependentState = result.pass;
         }
 

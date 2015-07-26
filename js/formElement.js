@@ -66,10 +66,14 @@ define(function (require, exports, module) {
         self.dependentState = newDependentState;
     };
     // 响应表单的数据变化
-    componentItem.prototype.dataChanged = function () {
+    componentItem.prototype.dataChanged = function (isSelfDataChange) {
         var self = this;
         self.checkValidate();
         self.checkDependent();
+
+        if (isSelfDataChange) {
+            return self.create();
+        }
 
         if (self.isStateChange) {
             return self.create();

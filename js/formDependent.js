@@ -7,7 +7,7 @@ define(function (require, exports, module) {
         var reason = null;
 
         for (key in dependentData && dependentData.rules) {
-            if (value[key] !== dependentData.rules[key]) {
+            if (value[key] != dependentData.rules[key]) {
                 result = false;
                 reason = key;
                 break;

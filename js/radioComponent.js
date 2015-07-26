@@ -2,7 +2,7 @@
  *  @file 单选元素
  */
 define(function (require, exports, module) {
-    var componentItem = require('js/formElement.js');
+    var componentItem = require('js/formOptionElement.js');
 
     var componentRadio = function (data, submitKey, onChange) {
         var self = this;
@@ -26,7 +26,7 @@ define(function (require, exports, module) {
                     value: radios[i].value,
                     name: submitKey
                 });
-                if (self.submitData[submitKey] !== undefined && self.submitData[submitKey] === radios[i].value) {
+                if (self.submitData[submitKey] !== undefined && self.submitData[submitKey] == radios[i].value) {
                     $input.attr('checked', 'checked');
                 }
                 $option.append($radioLabel).append($input);

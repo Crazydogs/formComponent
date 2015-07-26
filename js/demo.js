@@ -28,7 +28,7 @@ require(['js/formComponent.js'], function (Form) {
                     },
                     dependent: {
                         rules: {
-                            goods_name: 'xxx'
+                            goods_type: 1
                         },
                         fail: 'disable'
                     }

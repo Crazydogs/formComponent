@@ -14,11 +14,11 @@ define(function (require, exports, module) {
         self.$form = $('<form>');
 
         // 广播数据变化
-        function dataChanged() {
+        function dataChanged(submitKey) {
             for (var i = 0; i < self.keyList.length; i++) {
                 var key = self.keyList[i];
                 var item = self.itemsData[key];
-                var newDom = item.factory.dataChanged && item.factory.dataChanged();
+                var newDom = item.factory.dataChanged && item.factory.dataChanged(self.keyList[i] === submitKey);
                 if (newDom) {
                     item.dom.replaceWith(newDom);
                     item.dom = newDom;
@@ -28,7 +28,7 @@ define(function (require, exports, module) {
         // 响应组件的数据修改请求
         function handleChange(data) {
             self.submitData[data.submitKey] = data.value;
-            dataChanged();
+            dataChanged(data.submitKey);
         }
 
         // 根据表单元素配置数据创建 DOM 元素的构造器
